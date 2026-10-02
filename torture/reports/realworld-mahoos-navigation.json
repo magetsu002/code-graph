@@ -1,0 +1,248 @@
+{
+  "snapshot": "<snapshot>",
+  "snapshot_sha": "dcea6e3c584c9d7ae95c46e3b0f07c97c921c48e",
+  "db": "<mahoos-lib.db>",
+  "runs": 11,
+  "tasks": [
+    {
+      "id": "RW1-impact-recovery",
+      "question": "What production code depends on plan_runtime_recovery?",
+      "cg": {
+        "command": [
+          "/usr/bin/python3.14",
+          "-m",
+          "codegraph.cli",
+          "impact",
+          "plan_runtime_recovery",
+          "--db",
+          "<mahoos-lib.db>"
+        ],
+        "returncode": 0,
+        "median_ms": 48.751,
+        "min_ms": 47.43,
+        "max_ms": 57.706,
+        "stdout_lines": 11,
+        "stdout": "targets: ['function:guardian_live_recovery.plan_runtime_recovery']\ncallers (transitive): 8\n  d=1 [function] guardian_live_recovery.execute_automatic_runtime_recovery\n  d=1 [function] guardian_live_recovery.execute_runtime_recovery\n  d=1 [function] guardian_live_recovery.main\n  d=1 [function] guardian_live_recovery.reconcile_runtime_recovery\n  d=1 [function] guardian_runtime_recovery_campaign.corrupt_campaign\n  d=1 [function] guardian_runtime_recovery_campaign.recover_campaign\n  d=2 [function] guardian_live_recovery.recovery_loop\n  d=2 [function] guardian_runtime_recovery_campaign.main\nentry points: 0\n",
+        "stderr": ""
+      },
+      "raw": {
+        "command": [
+          "git",
+          "grep",
+          "-n",
+          "-w",
+          "plan_runtime_recovery",
+          "--",
+          "lib"
+        ],
+        "returncode": 0,
+        "median_ms": 3.539,
+        "min_ms": 3.084,
+        "max_ms": 3.995,
+        "stdout_lines": 7,
+        "stdout": "lib/guardian_live_recovery.py:280:def plan_runtime_recovery(\nlib/guardian_live_recovery.py:663:    proposal = plan_runtime_recovery(\nlib/guardian_live_recovery.py:1411:    proposal = plan_runtime_recovery(\nlib/guardian_live_recovery.py:1888:        proposal = plan_runtime_recovery(\nlib/guardian_live_recovery.py:2001:        result = plan_runtime_recovery(\nlib/guardian_runtime_recovery_campaign.py:229:    proposal = guardian_live_recovery.plan_runtime_recovery(\nlib/guardian_runtime_recovery_campaign.py:265:    proposal = guardian_live_recovery.plan_runtime_recovery(\n",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "RW2-adaptive-network-path",
+      "question": "Can maho_adaptive_shadow.main reach network_proposals?",
+      "cg": {
+        "command": [
+          "/usr/bin/python3.14",
+          "-m",
+          "codegraph.cli",
+          "path",
+          "maho_adaptive_shadow.main",
+          "maho_adaptive_network.network_proposals",
+          "--db",
+          "<mahoos-lib.db>"
+        ],
+        "returncode": 1,
+        "median_ms": 49.552,
+        "min_ms": 48.694,
+        "max_ms": 59.925,
+        "stdout_lines": 1,
+        "stdout": "no forward path from maho_adaptive_shadow.main to maho_adaptive_network.network_proposals over dependency edges (min_confidence=heuristic). try: downstream('maho_adaptive_shadow.main') for everything it reaches; reaches(['maho_adaptive_network.network_proposals']) for everything that depends on the target.\n",
+        "stderr": ""
+      },
+      "raw": {
+        "command": [
+          "git",
+          "grep",
+          "-n",
+          "-E",
+          "def main|def evaluate_shadow|evaluate_shadow\\(|policy_proposals\\(|network_proposals,",
+          "--",
+          "lib/maho_adaptive_shadow.py"
+        ],
+        "returncode": 0,
+        "median_ms": 4.136,
+        "min_ms": 3.284,
+        "max_ms": 5.519,
+        "stdout_lines": 7,
+        "stdout": "lib/maho_adaptive_shadow.py:458:def policy_proposals(\nlib/maho_adaptive_shadow.py:467:        network_proposals,\nlib/maho_adaptive_shadow.py:606:def evaluate_shadow(runtime_root: Path, *, now: datetime | None = None,\nlib/maho_adaptive_shadow.py:619:    proposals = policy_proposals(snapshot, now=current, preferences=behavior_preferences)\nlib/maho_adaptive_shadow.py:877:            status = evaluate_shadow(runtime_root, execute_certified=execute_certified)\nlib/maho_adaptive_shadow.py:892:def main(argv: Sequence[str] | None = None) -> int:\nlib/maho_adaptive_shadow.py:913:        result = evaluate_shadow(runtime_root, execute_certified=args.execute_certified)\n",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "RW3-admission-impact",
+      "question": "Where is evaluate_admission used in production Python?",
+      "cg": {
+        "command": [
+          "/usr/bin/python3.14",
+          "-m",
+          "codegraph.cli",
+          "impact",
+          "evaluate_admission",
+          "--db",
+          "<mahoos-lib.db>"
+        ],
+        "returncode": 0,
+        "median_ms": 52.876,
+        "min_ms": 47.098,
+        "max_ms": 63.837,
+        "stdout_lines": 14,
+        "stdout": "targets: ['function:guardian_admission.evaluate_admission']\ncallers (transitive): 11\n  d=1 [function] guardian_native_admission.admit_candidate\n  d=2 [function] guardian_native_admission.candidate_first_admission\n  d=2 [function] guardian_native_admission.main\n  d=2 [function] maho_update_admission.evaluate_normal_production_candidate\n  d=2 [function] maho_update_admission.evaluate_production_candidate\n  d=3 [function] maho_update_campaign.approve_native_admission\n  d=3 [function] maho_update_campaign.execute_native_campaign\n  d=3 [method] maho_update_normal_host.NormalProductionOps.guardian_admit\n  d=4 [function] maho_update_campaign.apply_aur_campaign\n  d=4 [function] maho_update_campaign.main\n  d=4 [function] maho_update_normal_campaign.certify_normal_update\nentry points: 0\n",
+        "stderr": ""
+      },
+      "raw": {
+        "command": [
+          "git",
+          "grep",
+          "-n",
+          "-w",
+          "evaluate_admission",
+          "--",
+          "lib"
+        ],
+        "returncode": 0,
+        "median_ms": 3.829,
+        "min_ms": 3.313,
+        "max_ms": 4.183,
+        "stdout_lines": 3,
+        "stdout": "lib/guardian_admission.py:312:def evaluate_admission(\nlib/guardian_native_admission.py:22:    derive_mutation_graph, evaluate_admission,\nlib/guardian_native_admission.py:540:    decision = evaluate_admission(inspection.graph, known_safe_graph_ids=known_safe_graph_ids)\n",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "RW4-env-reader",
+      "question": "Who reads MAHO_GUARDIAN_RECOVERY_ROOT?",
+      "cg": {
+        "command": [
+          "/usr/bin/python3.14",
+          "-m",
+          "codegraph.cli",
+          "node",
+          "env:MAHO_GUARDIAN_RECOVERY_ROOT",
+          "--db",
+          "<mahoos-lib.db>"
+        ],
+        "returncode": 0,
+        "median_ms": 49.412,
+        "min_ms": 44.799,
+        "max_ms": 60.765,
+        "stdout_lines": 15,
+        "stdout": "{\n \"id\": \"env:MAHO_GUARDIAN_RECOVERY_ROOT\",\n \"kind\": \"env\",\n \"name\": \"MAHO_GUARDIAN_RECOVERY_ROOT\",\n \"fqn\": null,\n \"file\": null,\n \"line\": null,\n \"end_line\": null,\n \"module\": null,\n \"doc\": null,\n \"lang\": \"env\",\n \"entry_kind\": null,\n \"attrs\": null\n}\n   <- READS_ENV method:guardian_live_state.LivePaths.defaults @guardian_live_state.py:92 exact\n",
+        "stderr": ""
+      },
+      "raw": {
+        "command": [
+          "git",
+          "grep",
+          "-n",
+          "MAHO_GUARDIAN_RECOVERY_ROOT",
+          "--",
+          "lib"
+        ],
+        "returncode": 0,
+        "median_ms": 4.899,
+        "min_ms": 3.535,
+        "max_ms": 7.109,
+        "stdout_lines": 1,
+        "stdout": "lib/guardian_live_state.py:92:            recovery_root=Path(os.environ.get(\"MAHO_GUARDIAN_RECOVERY_ROOT\", \"/var/lib/maho/guardian-recovery-r3/campaigns\")),\n",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "RW5-tests-recovery",
+      "question": "What tests cover plan_runtime_recovery?",
+      "cg": {
+        "command": [
+          "/usr/bin/python3.14",
+          "-m",
+          "codegraph.cli",
+          "tests",
+          "plan_runtime_recovery",
+          "--db",
+          "<mahoos-lib.db>"
+        ],
+        "returncode": 0,
+        "median_ms": 53.13,
+        "min_ms": 46.944,
+        "max_ms": 71.993,
+        "stdout_lines": 3,
+        "stdout": "targets: 1 node(s): guardian_live_recovery.plan_runtime_recovery\ntests: 0 direct, 0 transitive (of 0 test cases in the graph)\nno indexed test reaches the target (the graph has no test nodes: tests/ or *.spec files were not indexed)\n",
+        "stderr": ""
+      },
+      "raw": {
+        "command": [
+          "git",
+          "grep",
+          "-n",
+          "-w",
+          "plan_runtime_recovery",
+          "--",
+          "tests"
+        ],
+        "returncode": 0,
+        "median_ms": 4.493,
+        "min_ms": 3.382,
+        "max_ms": 7.594,
+        "stdout_lines": 4,
+        "stdout": "tests/test_guardian_live_recovery.py:134:    return recovery.plan_runtime_recovery(\ntests/test_guardian_runtime_auto_response.py:153:    return recovery.plan_runtime_recovery(\ntests/test_guardian_runtime_integrity_incident.py:141:            proposal = recovery.plan_runtime_recovery(\ntests/test_guardian_runtime_integrity_incident.py:212:            proposal = recovery.plan_runtime_recovery(\n",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "RW6-cli-entry",
+      "question": "What launches maho_adaptive_shadow.py as a user-facing command?",
+      "cg": {
+        "command": [
+          "/usr/bin/python3.14",
+          "-m",
+          "codegraph.cli",
+          "impact",
+          "maho_adaptive_shadow.main",
+          "--db",
+          "<mahoos-lib.db>"
+        ],
+        "returncode": 0,
+        "median_ms": 49.761,
+        "min_ms": 45.854,
+        "max_ms": 55.854,
+        "stdout_lines": 2,
+        "stdout": "targets: ['function:maho_adaptive_shadow.main']\nmaho_adaptive_shadow.main has no recorded callers (other incoming edges: CONTAINS\u00d71). It may be called dynamically (string callables, container lookups, framework hooks) or be unused. try: reaches('maho_adaptive_shadow.main') for every dependent over all edge kinds; search('main') for similarly named code.\n",
+        "stderr": ""
+      },
+      "raw": {
+        "command": [
+          "git",
+          "grep",
+          "-n",
+          "maho_adaptive_shadow.py",
+          "--",
+          "bin",
+          "systemd"
+        ],
+        "returncode": 0,
+        "median_ms": 6.235,
+        "min_ms": 3.598,
+        "max_ms": 7.567,
+        "stdout_lines": 1,
+        "stdout": "bin/maho-adaptive:6:exec python \"$ROOT/lib/maho_adaptive_shadow.py\" \"$@\"\n",
+        "stderr": ""
+      }
+    }
+  ]
+}
