@@ -1,0 +1,15 @@
+id: T09-PY-SCRIPT-ENTRY
+title: Python __main__ execution should be represented as an entry path
+coverage:
+  python: exact
+edges:
+  - src: function:app.main
+    dst: function:app.target
+    kind: CALLS
+    confidence: exact
+mcp:
+  - tool: impact
+    args:
+      method: app.target
+    contains:
+      - "entry points: 1"

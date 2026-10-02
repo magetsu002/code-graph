@@ -1,0 +1,77 @@
+{
+  "cases": [
+    {
+      "id": "T09-PY-SCRIPT-ENTRY",
+      "title": "Python __main__ execution should be represented as an entry path",
+      "ok": false,
+      "checks": [
+        {
+          "name": "index exits 0",
+          "ok": true,
+          "actual": 0,
+          "expected": 0
+        },
+        {
+          "name": "coverage has python",
+          "ok": true,
+          "actual": {
+            "language": "python",
+            "files": 1,
+            "status": "exact",
+            "by_ext": {
+              ".py": 1
+            }
+          },
+          "expected": "present"
+        },
+        {
+          "name": "python coverage status",
+          "ok": true,
+          "actual": "exact",
+          "expected": "exact"
+        },
+        {
+          "name": "edge function:app.main -CALLS-> function:app.target",
+          "ok": true,
+          "actual": [
+            [
+              "exact"
+            ]
+          ],
+          "expected": "present"
+        },
+        {
+          "name": "edge confidence",
+          "ok": true,
+          "actual": [
+            "exact"
+          ],
+          "expected": "exact"
+        },
+        {
+          "name": "MCP impact contains 'entry points: 1'",
+          "ok": false,
+          "actual": "targets: app.target\ntransitive callers: 1; entry points: 0\n\ncallers by module: ?\u00d71",
+          "expected": "contains 'entry points: 1'"
+        }
+      ],
+      "index_stderr": "coverage: python 1 exact\nevery source file cg found is indexed; edges still carry their own exact / resolved / heuristic label.\n",
+      "coverage": {
+        "languages": [
+          {
+            "language": "python",
+            "files": 1,
+            "status": "exact",
+            "by_ext": {
+              ".py": 1
+            }
+          }
+        ],
+        "gaps": 0
+      },
+      "prepare": []
+    }
+  ],
+  "passed": 0,
+  "failed": 1
+}

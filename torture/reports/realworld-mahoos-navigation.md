@@ -136,7 +136,9 @@ exec python "$ROOT/lib/maho_adaptive_shadow.py" "$@"
 
 This is a normal cross-language boundary in MahoOS. Shell is not part of the graph, so application entry reachability stops before the actual user-facing command.
 
-Result: **CG alone is incomplete for whole-system entry analysis.**
+A minimal follow-up fixture shows this is not only a shell-boundary problem: plain Python `if __name__ == "__main__": main()` is also not represented as an entry path. The function's internal calls are indexed, but `impact` still reports `entry points: 0`.
+
+Result: **CG alone is incomplete for whole-system entry analysis, including ordinary Python script entry points.**
 
 ## Practical workflow conclusion
 
@@ -161,13 +163,15 @@ On the questions CG handles well, it compresses several manual searches into one
 
 4. **Function-value/callback flow deserves at least a reference edge.** MahoOS's policy tuple is a natural example. Even a `REFERENCES_FN` edge from `policy_proposals` to `network_proposals` would make impact analysis less misleading.
 
-5. **Cross-language entry detection would be valuable.** Simple shell patterns such as `exec python path/to/file.py` could create a low-risk entry/reference edge, or at minimum coverage should tell the agent that shell launchers are outside the graph.
+5. **Plain Python script entry points should be represented.** A normal `if __name__ == "__main__": main()` currently leaves `main` outside the entry-point model even though its internal calls are indexed.
 
-6. **Python/pytest test discovery would materially improve the `tests` feature.** MahoOS has a large Python test suite that currently produces zero graph test nodes.
+6. **Cross-language entry detection would be valuable.** Simple shell patterns such as `exec python path/to/file.py` could create a low-risk entry/reference edge, or at minimum coverage should tell the agent that shell launchers are outside the graph.
 
-7. **Negative query wording should stay conservative.** Prefer `no recorded path` over `no forward path` when known semantic/cross-language gaps exist, and attach relevant capability warnings.
+7. **Python/pytest test discovery would materially improve the `tests` feature.** MahoOS has a large Python test suite that currently produces zero graph test nodes.
 
-8. **Project-root ergonomics matter as much as parser quality.** Whole-repo MahoOS indexing initially saw 288 Python files but indexed none; the right subproject root changed the tool from nearly useless to genuinely helpful.
+8. **Negative query wording should stay conservative.** Prefer `no recorded path` over `no forward path` when known semantic/cross-language gaps exist, and attach relevant capability warnings.
+
+9. **Project-root ergonomics matter as much as parser quality.** Whole-repo MahoOS indexing initially saw 288 Python files but indexed none; the right subproject root changed the tool from nearly useless to genuinely helpful.
 
 ## Positive feedback worth preserving
 
