@@ -1,0 +1,50 @@
+id: T05-PY-RELATIONSHIP-MATRIX
+title: Python exact/resolved/heuristic relationship matrix
+coverage:
+  python: exact
+edges:
+  - src: function:app.direct_alias
+    dst: function:lib.helper
+    kind: CALLS
+    confidence: exact
+  - src: function:app.construct
+    dst: class:lib.Worker
+    kind: INSTANTIATES
+    confidence: exact
+  - src: function:app.construct
+    dst: method:lib.Worker.__init__
+    kind: CALLS
+    confidence: exact
+  - src: function:app.typed_receiver
+    dst: method:lib.Worker.process_item
+    kind: CALLS
+    confidence: resolved
+  - src: function:app.inherited
+    dst: method:lib.Child.hook
+    kind: CALLS
+    confidence: resolved
+  - src: class:lib.Child
+    dst: class:lib.Base
+    kind: EXTENDS
+    confidence: exact
+  - src: method:lib.Base.hook
+    dst: method:lib.Child.hook
+    kind: OVERRIDDEN_BY
+    confidence: resolved
+  - src: function:app.unique_fallback
+    dst: method:lib.Special.special_action
+    kind: CALLS
+    confidence: heuristic
+absent_edges:
+  - src: function:app.ambiguous
+    dst: method:lib.First.shared_action
+    kind: CALLS
+  - src: function:app.ambiguous
+    dst: method:lib.Second.shared_action
+    kind: CALLS
+  - src: function:app.string_noise
+    dst: function:lib.helper
+    kind: CALLS
+  - src: function:app.string_noise
+    dst: method:lib.Worker.process_item
+    kind: CALLS

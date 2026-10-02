@@ -1,0 +1,352 @@
+{
+  "cases": [
+    {
+      "id": "T05-PY-RELATIONSHIP-MATRIX",
+      "title": "Python exact/resolved/heuristic relationship matrix",
+      "ok": true,
+      "checks": [
+        {
+          "name": "index exits 0",
+          "ok": true,
+          "actual": 0,
+          "expected": 0
+        },
+        {
+          "name": "coverage has python",
+          "ok": true,
+          "actual": {
+            "language": "python",
+            "files": 2,
+            "status": "exact",
+            "by_ext": {
+              ".py": 2
+            }
+          },
+          "expected": "present"
+        },
+        {
+          "name": "python coverage status",
+          "ok": true,
+          "actual": "exact",
+          "expected": "exact"
+        },
+        {
+          "name": "edge function:app.direct_alias -CALLS-> function:lib.helper",
+          "ok": true,
+          "actual": [
+            [
+              "exact"
+            ]
+          ],
+          "expected": "present"
+        },
+        {
+          "name": "edge confidence",
+          "ok": true,
+          "actual": [
+            "exact"
+          ],
+          "expected": "exact"
+        },
+        {
+          "name": "edge function:app.construct -INSTANTIATES-> class:lib.Worker",
+          "ok": true,
+          "actual": [
+            [
+              "exact"
+            ]
+          ],
+          "expected": "present"
+        },
+        {
+          "name": "edge confidence",
+          "ok": true,
+          "actual": [
+            "exact"
+          ],
+          "expected": "exact"
+        },
+        {
+          "name": "edge function:app.construct -CALLS-> method:lib.Worker.__init__",
+          "ok": true,
+          "actual": [
+            [
+              "exact"
+            ]
+          ],
+          "expected": "present"
+        },
+        {
+          "name": "edge confidence",
+          "ok": true,
+          "actual": [
+            "exact"
+          ],
+          "expected": "exact"
+        },
+        {
+          "name": "edge function:app.typed_receiver -CALLS-> method:lib.Worker.process_item",
+          "ok": true,
+          "actual": [
+            [
+              "resolved"
+            ]
+          ],
+          "expected": "present"
+        },
+        {
+          "name": "edge confidence",
+          "ok": true,
+          "actual": [
+            "resolved"
+          ],
+          "expected": "resolved"
+        },
+        {
+          "name": "edge function:app.inherited -CALLS-> method:lib.Child.hook",
+          "ok": true,
+          "actual": [
+            [
+              "resolved"
+            ]
+          ],
+          "expected": "present"
+        },
+        {
+          "name": "edge confidence",
+          "ok": true,
+          "actual": [
+            "resolved"
+          ],
+          "expected": "resolved"
+        },
+        {
+          "name": "edge class:lib.Child -EXTENDS-> class:lib.Base",
+          "ok": true,
+          "actual": [
+            [
+              "exact"
+            ]
+          ],
+          "expected": "present"
+        },
+        {
+          "name": "edge confidence",
+          "ok": true,
+          "actual": [
+            "exact"
+          ],
+          "expected": "exact"
+        },
+        {
+          "name": "edge method:lib.Base.hook -OVERRIDDEN_BY-> method:lib.Child.hook",
+          "ok": true,
+          "actual": [
+            [
+              "resolved"
+            ]
+          ],
+          "expected": "present"
+        },
+        {
+          "name": "edge confidence",
+          "ok": true,
+          "actual": [
+            "resolved"
+          ],
+          "expected": "resolved"
+        },
+        {
+          "name": "edge function:app.unique_fallback -CALLS-> method:lib.Special.special_action",
+          "ok": true,
+          "actual": [
+            [
+              "heuristic"
+            ]
+          ],
+          "expected": "present"
+        },
+        {
+          "name": "edge confidence",
+          "ok": true,
+          "actual": [
+            "heuristic"
+          ],
+          "expected": "heuristic"
+        },
+        {
+          "name": "edge absent function:app.ambiguous -CALLS-> method:lib.First.shared_action",
+          "ok": true,
+          "actual": [],
+          "expected": "absent"
+        },
+        {
+          "name": "edge absent function:app.ambiguous -CALLS-> method:lib.Second.shared_action",
+          "ok": true,
+          "actual": [],
+          "expected": "absent"
+        },
+        {
+          "name": "edge absent function:app.string_noise -CALLS-> function:lib.helper",
+          "ok": true,
+          "actual": [],
+          "expected": "absent"
+        },
+        {
+          "name": "edge absent function:app.string_noise -CALLS-> method:lib.Worker.process_item",
+          "ok": true,
+          "actual": [],
+          "expected": "absent"
+        }
+      ],
+      "index_stderr": "coverage: python 2 exact\nevery source file cg found is indexed; edges still carry their own exact / resolved / heuristic label.\n",
+      "coverage": {
+        "languages": [
+          {
+            "language": "python",
+            "files": 2,
+            "status": "exact",
+            "by_ext": {
+              ".py": 2
+            }
+          }
+        ],
+        "gaps": 0
+      },
+      "prepare": []
+    },
+    {
+      "id": "T06-TS-RELATIONSHIP-MATRIX",
+      "title": "TypeScript direct/import/type relationship matrix",
+      "ok": true,
+      "checks": [
+        {
+          "name": "index exits 0",
+          "ok": true,
+          "actual": 0,
+          "expected": 0
+        },
+        {
+          "name": "coverage has typescript",
+          "ok": true,
+          "actual": {
+            "language": "typescript",
+            "files": 2,
+            "status": "exact",
+            "by_ext": {
+              ".ts": 2
+            }
+          },
+          "expected": "present"
+        },
+        {
+          "name": "typescript coverage status",
+          "ok": true,
+          "actual": "exact",
+          "expected": "exact"
+        },
+        {
+          "name": "edge module:src/app.ts -IMPORTS-> module:src/lib.ts",
+          "ok": true,
+          "actual": [
+            [
+              "exact"
+            ]
+          ],
+          "expected": "present"
+        },
+        {
+          "name": "edge confidence",
+          "ok": true,
+          "actual": [
+            "exact"
+          ],
+          "expected": "exact"
+        },
+        {
+          "name": "edge function:src/app.ts#directAlias -CALLS-> function:src/lib.ts#helper",
+          "ok": true,
+          "actual": [
+            [
+              "exact"
+            ]
+          ],
+          "expected": "present"
+        },
+        {
+          "name": "edge confidence",
+          "ok": true,
+          "actual": [
+            "exact"
+          ],
+          "expected": "exact"
+        },
+        {
+          "name": "edge function:src/app.ts#typedReceiver -CALLS-> method:src/lib.ts#Worker.processItem",
+          "ok": true,
+          "actual": [
+            [
+              "resolved"
+            ]
+          ],
+          "expected": "present"
+        },
+        {
+          "name": "edge confidence",
+          "ok": true,
+          "actual": [
+            "resolved"
+          ],
+          "expected": "resolved"
+        },
+        {
+          "name": "edge function:src/app.ts#construct -INSTANTIATES-> class:src/lib.ts#Worker",
+          "ok": true,
+          "actual": [
+            [
+              "exact"
+            ]
+          ],
+          "expected": "present"
+        },
+        {
+          "name": "edge confidence",
+          "ok": true,
+          "actual": [
+            "exact"
+          ],
+          "expected": "exact"
+        },
+        {
+          "name": "edge absent function:src/app.ts#stringNoise -CALLS-> function:src/lib.ts#helper",
+          "ok": true,
+          "actual": [],
+          "expected": "absent"
+        },
+        {
+          "name": "edge absent function:src/app.ts#stringNoise -CALLS-> method:src/lib.ts#Worker.processItem",
+          "ok": true,
+          "actual": [],
+          "expected": "absent"
+        }
+      ],
+      "index_stderr": "coverage: typescript 2 exact\nevery source file cg found is indexed; edges still carry their own exact / resolved / heuristic label.\n",
+      "coverage": {
+        "languages": [
+          {
+            "language": "typescript",
+            "files": 2,
+            "status": "exact",
+            "by_ext": {
+              ".ts": 2
+            }
+          }
+        ],
+        "gaps": 0
+      },
+      "prepare": []
+    }
+  ],
+  "passed": 2,
+  "failed": 0
+}

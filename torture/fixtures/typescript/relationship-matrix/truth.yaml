@@ -1,0 +1,28 @@
+id: T06-TS-RELATIONSHIP-MATRIX
+title: TypeScript direct/import/type relationship matrix
+coverage:
+  typescript: exact
+edges:
+  - src: module:src/app.ts
+    dst: module:src/lib.ts
+    kind: IMPORTS
+    confidence: exact
+  - src: function:src/app.ts#directAlias
+    dst: function:src/lib.ts#helper
+    kind: CALLS
+    confidence: exact
+  - src: function:src/app.ts#typedReceiver
+    dst: method:src/lib.ts#Worker.processItem
+    kind: CALLS
+    confidence: resolved
+  - src: function:src/app.ts#construct
+    dst: class:src/lib.ts#Worker
+    kind: INSTANTIATES
+    confidence: exact
+absent_edges:
+  - src: function:src/app.ts#stringNoise
+    dst: function:src/lib.ts#helper
+    kind: CALLS
+  - src: function:src/app.ts#stringNoise
+    dst: method:src/lib.ts#Worker.processItem
+    kind: CALLS
