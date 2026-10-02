@@ -1,0 +1,22 @@
+id: T08-DJANGO-DYNAMIC-URL
+title: documented Django dynamic URL omission must not look exhaustive
+coverage:
+  python: exact
+edges:
+  - src: route:ANY /direct/
+    dst: function:views.direct_view
+    kind: ROUTES_TO
+    confidence: exact
+absent_edges:
+  - src: route:ANY /generated/
+    dst: function:views.generated_view
+    kind: ROUTES_TO
+mcp:
+  - tool: routes
+    args: {}
+    contains_any:
+      - not exhaustive
+      - may be incomplete
+      - dynamic URL
+      - built in loops
+      - built in functions

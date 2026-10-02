@@ -1,0 +1,21 @@
+id: T07-NEST-WRAPPED-ROUTE
+title: documented Nest wrapped route omission must not look exhaustive
+coverage:
+  typescript: exact
+edges:
+  - src: route:GET /users/direct
+    dst: method:src/controller.ts#UserController.direct
+    kind: ROUTES_TO
+    confidence: exact
+absent_edges:
+  - src: route:GET /users/wrapped
+    dst: method:src/controller.ts#UserController.wrapped
+    kind: ROUTES_TO
+mcp:
+  - tool: routes
+    args: {}
+    contains_any:
+      - not exhaustive
+      - may be incomplete
+      - applyDecorators
+      - custom route decorator

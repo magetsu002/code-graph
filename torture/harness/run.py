@@ -145,6 +145,10 @@ def run_case(truth_path: Path):
                 M.STATE.update(old)
             for needle in spec.get("contains") or []:
                 record(checks, f"MCP {spec['tool']} contains {needle!r}", needle in text, text, f"contains {needle!r}")
+            any_needles = spec.get("contains_any") or []
+            if any_needles:
+                ok = any(n in text for n in any_needles)
+                record(checks, f"MCP {spec['tool']} contains any completeness warning", ok, text, any_needles)
             for needle in spec.get("not_contains") or []:
                 record(checks, f"MCP {spec['tool']} excludes {needle!r}", needle not in text, text, f"not contains {needle!r}")
 
