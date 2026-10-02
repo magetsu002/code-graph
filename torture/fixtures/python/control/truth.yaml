@@ -1,0 +1,12 @@
+id: CTRL-PY-001
+title: direct Python call positive control
+coverage:
+  python: exact
+nodes:
+  - function:app.target
+  - function:app.caller
+edges:
+  - src: function:app.caller
+    dst: function:app.target
+    kind: CALLS
+    confidence: exact
