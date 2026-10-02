@@ -1,0 +1,18 @@
+id: T03-PY-OVERSIZED-SKIP
+title: oversized skipped source must poison exhaustive coverage
+prepare:
+  - python3 generate_fixture
+coverage:
+  python:
+    status_not: exact
+    files: 2
+stats_checks:
+  - path: plugins.python.skipped
+    op: gt
+    value: 0
+mcp:
+  - tool: impact
+    args:
+      method: Hidden::target
+    contains:
+      - not proof of absence

@@ -1,0 +1,3 @@
+[project]
+name = "cg-torture-dynamic-dispatch"
+version = "0.0.0"

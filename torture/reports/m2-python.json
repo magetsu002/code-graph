@@ -1,0 +1,303 @@
+{
+  "cases": [
+    {
+      "id": "CTRL-PY-001",
+      "title": "direct Python call positive control",
+      "ok": true,
+      "checks": [
+        {
+          "name": "index exits 0",
+          "ok": true,
+          "actual": 0,
+          "expected": 0
+        },
+        {
+          "name": "coverage has python",
+          "ok": true,
+          "actual": {
+            "language": "python",
+            "files": 1,
+            "status": "exact",
+            "by_ext": {
+              ".py": 1
+            }
+          },
+          "expected": "present"
+        },
+        {
+          "name": "python coverage status",
+          "ok": true,
+          "actual": "exact",
+          "expected": "exact"
+        },
+        {
+          "name": "node function:app.target",
+          "ok": true,
+          "actual": true,
+          "expected": true
+        },
+        {
+          "name": "node function:app.caller",
+          "ok": true,
+          "actual": true,
+          "expected": true
+        },
+        {
+          "name": "edge function:app.caller -CALLS-> function:app.target",
+          "ok": true,
+          "actual": [
+            [
+              "exact"
+            ]
+          ],
+          "expected": "present"
+        },
+        {
+          "name": "edge confidence",
+          "ok": true,
+          "actual": [
+            "exact"
+          ],
+          "expected": "exact"
+        }
+      ],
+      "index_stderr": "coverage: python 1 exact\nevery source file cg found is indexed; edges still carry their own exact / resolved / heuristic label.\n",
+      "coverage": {
+        "languages": [
+          {
+            "language": "python",
+            "files": 1,
+            "status": "exact",
+            "by_ext": {
+              ".py": 1
+            }
+          }
+        ],
+        "gaps": 0
+      },
+      "prepare": []
+    },
+    {
+      "id": "T02-PY-DYNAMIC-DISPATCH",
+      "title": "unresolved dynamic dispatch must not look exhaustive",
+      "ok": true,
+      "checks": [
+        {
+          "name": "index exits 0",
+          "ok": true,
+          "actual": 0,
+          "expected": 0
+        },
+        {
+          "name": "coverage has python",
+          "ok": true,
+          "actual": {
+            "language": "python",
+            "files": 1,
+            "status": "exact",
+            "by_ext": {
+              ".py": 1
+            }
+          },
+          "expected": "present"
+        },
+        {
+          "name": "python coverage status",
+          "ok": true,
+          "actual": "exact",
+          "expected": "exact"
+        },
+        {
+          "name": "node function:app.dispatch",
+          "ok": true,
+          "actual": true,
+          "expected": true
+        },
+        {
+          "name": "node method:app.Alpha.do_work",
+          "ok": true,
+          "actual": true,
+          "expected": true
+        },
+        {
+          "name": "node method:app.Beta.do_work",
+          "ok": true,
+          "actual": true,
+          "expected": true
+        },
+        {
+          "name": "edge absent function:app.dispatch -CALLS-> method:app.Alpha.do_work",
+          "ok": true,
+          "actual": [],
+          "expected": "absent"
+        },
+        {
+          "name": "edge absent function:app.dispatch -CALLS-> method:app.Beta.do_work",
+          "ok": true,
+          "actual": [],
+          "expected": "absent"
+        },
+        {
+          "name": "MCP impact contains 'may be called dynamically'",
+          "ok": true,
+          "actual": "targets: app.Alpha.do_work\ntransitive callers: 0; entry points: 0\napp.Alpha.do_work has no recorded callers (other incoming edges: CONTAINS\u00d71). It may be called dynamically (string callables, container lookups, framework hooks) or be unused. try: reaches('app.Alpha.do_work') for every dependent over all edge kinds; search('do_work') for similarly named code.\ncoverage: every source file cg found is indexed (python); code outside these languages or generated at runtime is not in the graph.",
+          "expected": "contains 'may be called dynamically'"
+        }
+      ],
+      "index_stderr": "coverage: python 1 exact\nevery source file cg found is indexed; edges still carry their own exact / resolved / heuristic label.\n",
+      "coverage": {
+        "languages": [
+          {
+            "language": "python",
+            "files": 1,
+            "status": "exact",
+            "by_ext": {
+              ".py": 1
+            }
+          }
+        ],
+        "gaps": 0
+      },
+      "prepare": []
+    },
+    {
+      "id": "T03-PY-OVERSIZED-SKIP",
+      "title": "oversized skipped source must poison exhaustive coverage",
+      "ok": false,
+      "checks": [
+        {
+          "name": "index exits 0",
+          "ok": true,
+          "actual": 0,
+          "expected": 0
+        },
+        {
+          "name": "coverage has python",
+          "ok": true,
+          "actual": {
+            "language": "python",
+            "files": 2,
+            "status": "exact",
+            "by_ext": {
+              ".py": 2
+            }
+          },
+          "expected": "present"
+        },
+        {
+          "name": "python coverage status is not exact",
+          "ok": false,
+          "actual": "exact",
+          "expected": "not exact"
+        },
+        {
+          "name": "python coverage file count",
+          "ok": true,
+          "actual": 2,
+          "expected": 2
+        },
+        {
+          "name": "stats plugins.python.skipped gt 0",
+          "ok": true,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "name": "MCP impact contains 'not proof of absence'",
+          "ok": false,
+          "actual": "no method matches 'Hidden::target'; try search() with part of the name\ncoverage: every source file cg found is indexed (python); code outside these languages or generated at runtime is not in the graph.",
+          "expected": "contains 'not proof of absence'"
+        }
+      ],
+      "index_stderr": "coverage: python 2 exact\nevery source file cg found is indexed; edges still carry their own exact / resolved / heuristic label.\n",
+      "coverage": {
+        "languages": [
+          {
+            "language": "python",
+            "files": 2,
+            "status": "exact",
+            "by_ext": {
+              ".py": 2
+            }
+          }
+        ],
+        "gaps": 0
+      },
+      "prepare": [
+        {
+          "command": "python3 generate_fixture",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "id": "T01-PY-PARSE-COVERAGE",
+      "title": "parse failure must poison exhaustive coverage",
+      "ok": false,
+      "checks": [
+        {
+          "name": "index exits 0",
+          "ok": true,
+          "actual": 0,
+          "expected": 0
+        },
+        {
+          "name": "coverage has python",
+          "ok": true,
+          "actual": {
+            "language": "python",
+            "files": 2,
+            "status": "exact",
+            "by_ext": {
+              ".py": 2
+            }
+          },
+          "expected": "present"
+        },
+        {
+          "name": "python coverage status is not exact",
+          "ok": false,
+          "actual": "exact",
+          "expected": "not exact"
+        },
+        {
+          "name": "python coverage file count",
+          "ok": true,
+          "actual": 2,
+          "expected": 2
+        },
+        {
+          "name": "stats plugins.python.parse_errors gt 0",
+          "ok": true,
+          "actual": 1,
+          "expected": 0
+        },
+        {
+          "name": "MCP impact contains 'not proof of absence'",
+          "ok": false,
+          "actual": "no method matches 'Broken::target'; try search() with part of the name\ncoverage: every source file cg found is indexed (python); code outside these languages or generated at runtime is not in the graph.",
+          "expected": "contains 'not proof of absence'"
+        }
+      ],
+      "index_stderr": "coverage: python 2 exact\nevery source file cg found is indexed; edges still carry their own exact / resolved / heuristic label.\n",
+      "coverage": {
+        "languages": [
+          {
+            "language": "python",
+            "files": 2,
+            "status": "exact",
+            "by_ext": {
+              ".py": 2
+            }
+          }
+        ],
+        "gaps": 0
+      },
+      "prepare": []
+    }
+  ],
+  "passed": 2,
+  "failed": 2
+}

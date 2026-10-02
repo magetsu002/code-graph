@@ -1,0 +1,21 @@
+id: T02-PY-DYNAMIC-DISPATCH
+title: unresolved dynamic dispatch must not look exhaustive
+coverage:
+  python: exact
+nodes:
+  - function:app.dispatch
+  - method:app.Alpha.do_work
+  - method:app.Beta.do_work
+absent_edges:
+  - src: function:app.dispatch
+    dst: method:app.Alpha.do_work
+    kind: CALLS
+  - src: function:app.dispatch
+    dst: method:app.Beta.do_work
+    kind: CALLS
+mcp:
+  - tool: impact
+    args:
+      method: app.Alpha.do_work
+    contains:
+      - may be called dynamically

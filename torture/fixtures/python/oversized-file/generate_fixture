@@ -1,0 +1,5 @@
+from pathlib import Path
+
+padding = "# padding\n" * 190_000
+body = """\nclass Hidden:\n    def target(self) -> str:\n        return \"hidden\"\n\n\ndef caller() -> str:\n    return Hidden().target()\n"""
+Path("oversized.py").write_text(padding + body)

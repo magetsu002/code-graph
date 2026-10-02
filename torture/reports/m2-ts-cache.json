@@ -1,0 +1,27 @@
+{
+  "id": "T04-TS-STALE-CACHE",
+  "title": "same-size source change with restored mtime must invalidate TypeScript facts",
+  "first_cache": "miss",
+  "second_cache": "hit",
+  "first_edges": [
+    [
+      "function:src/index.ts#run",
+      "function:src/index.ts#foo",
+      "exact",
+      "src/index.ts",
+      10
+    ]
+  ],
+  "second_edges": [
+    [
+      "function:src/index.ts#run",
+      "function:src/index.ts#foo",
+      "exact",
+      "src/index.ts",
+      10
+    ]
+  ],
+  "updated_relationship": false,
+  "first_stderr": "coverage: typescript 1 exact\nevery source file cg found is indexed; edges still carry their own exact / resolved / heuristic label.\n",
+  "second_stderr": "coverage: typescript 1 exact\nevery source file cg found is indexed; edges still carry their own exact / resolved / heuristic label.\n"
+}

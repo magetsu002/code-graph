@@ -1,0 +1,16 @@
+id: T01-PY-PARSE-COVERAGE
+title: parse failure must poison exhaustive coverage
+coverage:
+  python:
+    status_not: exact
+    files: 2
+stats_checks:
+  - path: plugins.python.parse_errors
+    op: gt
+    value: 0
+mcp:
+  - tool: impact
+    args:
+      method: Broken::target
+    contains:
+      - not proof of absence
